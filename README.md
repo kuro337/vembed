@@ -1,4 +1,9 @@
-# Embedder
+# vembed
+
+![Alt text for the image](assets/vembed.jpg)
+
+
+Library to generate Embeddings and Extract Semantic Similarity from Data.
 
 <hr/>
 
