@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="vembed",
-    version="0.2",
+    version="0.21",
     author="kuro337",
     description="Package providing methods to create Vector Embeddings from Strings, calculate similarities between lists of Strings, and Generate Visualizations such as Heatmaps from simple Lists.",
     long_description=open("README.md", "r", encoding="utf-8")
