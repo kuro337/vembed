@@ -1,13 +1,14 @@
 Metadata-Version: 2.1
 Name: vembed
 Version: 0.2
-Summary: Package providing methods to create Vector Embeddings from Strings
+Summary: Package providing methods to create Vector Embeddings from Strings, calculate similarities between lists of Strings, and Generate Visualizations such as Heatmaps from simple Lists.
 Home-page: https://github.com/kuro337/vembed
 Author: kuro337
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: sentence_transformers
 Requires-Dist: torch
 Requires-Dist: transformers
@@ -15,7 +16,12 @@ Requires-Dist: pandas
 Requires-Dist: matplotlib
 Requires-Dist: seaborn
 
-# Embedder
+# vembed
+
+
+
+
+Library to generate Embeddings and Extract Semantic Similarity from Data.
 
 <hr/>
 
