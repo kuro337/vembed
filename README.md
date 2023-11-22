@@ -3,8 +3,17 @@
 <img src="assets/vecembed.jpg" alt="Alt text for the image" width="100%" height="auto" />
 
 <br/>
+<br/>
 
-Library to generate and serialize Vector Embeddings, extract Semantic Similarity, and create Visualizations.
+
+Library to Generate and Serialize Vector Embeddings, extract Semantic Similarity, and create Visualizations from data.
+
+<br/>
+
+```bash
+pip install vembed
+```
+
 
 <br/>
 
@@ -19,8 +28,10 @@ Library to generate and serialize Vector Embeddings, extract Semantic Similarity
 from vembed import string_to_embedding
 
 input_string = "This is a test sentence."
+
 embedding = string_to_embedding(input_string)
-print(embedding)
+
+#  [0.337, 0.143, 0.714 ...]
 ```
 <br/>
 
@@ -30,7 +41,8 @@ print(embedding)
 from vembed import lists_to_embeddings
 
 embeddings = lists_to_embeddings(["Convert to a List[Float]", "Another String","More Strings!"])
-print(embeddings)  # Output: [[0.123, 0.456, ...], [0.789, 0.012, ...]]
+
+# print(embeddings) [[0.123, 0.456, ...], [0.789, 0.012, ...]]
 ```
 <br/>
 
@@ -39,14 +51,18 @@ print(embeddings)  # Output: [[0.123, 0.456, ...], [0.789, 0.012, ...]]
 
 Functions for Embedding Serialization for Network Transfer.
 
-- `Protobuf` Serializable Format to use with `gRPC` Services
--  `JSON` Serialization for usage with `REST` API's
+<br/>
 
+- **Protobuf** Serialization for usage with **gRPC** Services
+
+- **JSON** Serialization for usage with **REST** API's
+
+<br/>
 
 ```py
 from vembed import lists_to_embeddings, embeddings_to_proto_format, embeddings_to_json_format
 
-embeddings = lists_to_embeddings(["CSV,Row,1" , "CSV,Row,2"])
+embeddings = lists_to_embeddings(["CSV,Row,1,with,some,data" , "CSV,Row,2,with,other,cols"])
 
 # Convert to a Protobuf Serializable Format to send over a gRPC Service
 proto_embedding = embeddings_to_proto_format(embeddings)
@@ -59,16 +75,18 @@ json_embedding = embeddings_to_json_format(embeddings)
 
 ### Similarity 
 
+<br/>
+
 
 *Semantic Similarity Between Entities*
-
-<br/>
 
 Extract Insights such as Patterns or Relevancy from your Data.
 
 <br/>
 
 - Calculating Similarity for Entities.
+
+<br/>
 
 ```py
 from vembed import calculate_similarities, plot_similarities
@@ -82,9 +100,12 @@ cos_df, dot_df = calculate_similarities(customer_feedback, themes, print_results
 
 # Prints and Returns Results
 ```
-`Results` 
+
+<br/>
 
 ```bash
+# Results
+
 Cosine Similarities:
 
 Query: 'Loved the recent update'
@@ -116,7 +137,10 @@ Query: 'Facing issues after the update'
 
 <br/>
 
-- Generating Beautiful, Clean Visualizations from Results.
+- Generating Clean, Beautiful Visualizations from Results.
+
+<br/>
+
 
 ```py
 from vembed import plot_similarities
@@ -124,12 +148,25 @@ from vembed import plot_similarities
 # .... cos_df, dot_df = calculate_similarities(queries, data)
 
 # Create HeapMap for Visualizing Relationships
+
 plot_similarities(cos_df, dot_df, save_path="heatmaps/customer_feedback_similarity.png")
 
 # View and access the Heatmap at /heatmaps/customer_feedback_similarity.png
 ```
+<hr/>
+
+### Cosine and Dot Product Vector Similarity Measures
+
+```bash
+@Coefficient Legend
+
+Negative [ - ] - Low Similarity
+Zero     [ 0 ] - Orthogonal , No Commonality
+Positive [ + ] - Strong Similarity 
+```
 
 #### Cosine Similarity 
+<br/>
 
   - Ranges between `-1` and `1`
 
@@ -142,50 +179,58 @@ plot_similarities(cos_df, dot_df, save_path="heatmaps/customer_feedback_similari
 
   - `Cosine Similarity` is useful here as we want to find the relevancy of documents discussing similar topics `(direction)` - irrespective of the length of frequency of specific words `(Magnitude)`
 
+<br/>
 
 ```py
 @Usage
 
 queries = ["Climate change effects on agriculture"]
-data = [
-    "Effects of climate change on wheat production",
-    "Agriculture in developing countries",
-    "Climate change and its impact on global food security",
-    "Advances in agricultural technology"
-]
+
+data =    [
+           "Effects of climate change on wheat production",
+           "Agriculture in developing countries",
+           "Climate change and its impact on global food security",
+           "Advances in agricultural technology"
+          ]
 
 # Calculate cosine similarities
 cos_df, _ = calculate_similarities(queries, data, sorted=True, print_results=True)
 ```
+<br/>
 
 #### Dot Product Similarity 
+<br/>
 
   - Ranges between any Real Number 
 
-  - When both the `magnitude` and `direction` of the vectors are important, and you are dealing with vectors in a similar scale.
+  - When both the **Magnitude** and **Direction** of the vectors are important, and we are dealing with vectors in a similar scale.
 
-  - When the `Frequency` (Magnitude) as well as the `Direction` (Relevancy) is both important.
+  - When the **Frequency** *(Magnitude)* as well as the **Direction** *(Relevancy)* is both important.
+
+<br/>
 
 - Use Case for Dot Product 
   
-  - `Direction` (Types of Articles) and `Magnitude` (Frequency of Reading Habits) are both important.
+  - **Direction** *(Types of Articles)* and **Magnitude** *(Frequency of Reading Habits)* - both have relevancy.
+
+<br/>
 
 ```py
 @Usage
 
-user_reading_profile = ["Read many articles on machine learning", "Occasionally reads about space exploration"]
-article_options = [
-    "Latest trends in machine learning",
-    "Beginner's guide to space travel",
-    "In-depth analysis of neural networks",
-    "Recent discoveries in astronomy"
-]
+user_reading_profile = ["Read many articles on machine learning", "Occasionally reads about space exploration" ]
+article_options      = [
+                        "Latest trends in machine learning",
+                        "Beginner's guide to space travel",
+                        "In-depth analysis of neural networks",
+                        "Recent discoveries in astronomy"
+                       ]
 
 # Calculate dot product similarities
+
 _, dot_df = calculate_similarities(user_reading_profile, article_options, sorted=True, print_results=True)
-
-
 ```
+<br/>
 
 
 - Calculating Similarity
@@ -193,53 +238,79 @@ _, dot_df = calculate_similarities(user_reading_profile, article_options, sorted
 ```py
 @Usage
 
-queries = ["What is the capital of France?", "How is the weather today?"]
-    data = [
-        "Paris is the capital of France.",
-        "The weather is sunny.",
-        "Berlin is the capital of Germany.",
-        "It is raining in Berlin.",
-    ]
+queries =  [ 
+            "What is the capital of France?", 
+            "How is the weather today?"
+           ]
 
-    # Calculate similarities and Print Results
-    cos_df, dot_df = calculate_similarities(
-        queries, data, sorted=True, print_results=True
-    )
+data    =  [
+             "Paris is the capital of France.",
+             "The weather is sunny.",
+             "Berlin is the capital of Germany.",
+             "It is raining in Berlin."
+           ]
+
+# Calculate similarities and Print Results
+
+cos_df, dot_df = calculate_similarities(queries, data, sorted=True, print_results=True)
+
+
+# Cosine Similarities:
+# ...
+
+# Dot Product Similarities:
+# ...
 ```
-
-### Visualization for Relevance 
 
 <hr/>
 
+<br/>
+
+### Visualizations 
+
+<br/>
+
+
+
+*Generate Visualizations from Embeddings such as HeatMap Distributions*
+
+<br/>
+
 - Create a visualization to display the Simalirities using a Heatmap.
+
+<br/>
 
 ```py
 @Usage
 
 customer_feedback = [
-    "Loved the recent update",
-    "The app is user-friendly",
-    "Facing issues after the update",
-    "The new interface is great",
-]
-themes = [
-    "positive feedback",
-    "negative feedback",
-    "app interface",
-    "app functionality",
-]
+                      "Loved the recent update",
+                      "The app is user-friendly",
+                      "Facing issues after the update",
+                      "The new interface is great"
+                    ]
+
+themes            = [
+                      "positive feedback",
+                      "negative feedback",
+                      "app interface",
+                      "app functionality"
+                    ]
 
 # Heatmap of Both Cosine and Dot Product
 cos_df, dot_df = calculate_similarities(customer_feedback, themes, sorted=True)
 plot_similarities(cos_df, dot_df, save_path="customer_feedback_similarity.png")
 
+
 # Heatmap of Only Cosine Similarity
 cos_df, _ = calculate_similarities(customer_feedback, themes, sorted=True)
 plot_similarities(cos_df, None, save_path="customer_feedback_similarity.png")
 
+
 # Heatmap of Only Dot Product Similarity
 _, dot_df = calculate_similarities(customer_feedback, themes, sorted=True)
 plot_similarities(None, dot_df, save_path="customer_feedback_similarity.png")
+
 
 # View customer_feedback_similarity.png to see the Heatmap
 ```
@@ -247,13 +318,21 @@ plot_similarities(None, dot_df, save_path="customer_feedback_similarity.png")
 <hr/>
 <hr/>
 
+<br/>
+
+
 ### Tests
 
-[Latest Test Run](https://github.com/kuro337/vembed/tree/main/tests)
+[Latest](https://github.com/kuro337/vembed/tree/main/tests) Test Run
 
 <hr/>
 
+<br/>
+
 #### Build and Run Locally from Source
+
+<br/>
+
 
 ```bash
 git clone git@github.com:kuro337/vembed.git
@@ -285,9 +364,33 @@ Dependencies
 - `matplotlib`
 - `seaborn`
 
-*Note: This package uses `Nvidia Cuda` and `Torch`.*
+<br/>
+
+<hr/>
+
+<br/>
+
+*Note: vembed GPU Usage can be enabled from using `Nvidia Cuda` and `Torch` if a supported Nvidia Graphics Card is Available.*
+
+<br/>
+
+
+
+- Run [CUDA Tests](https://github.com/kuro337/vembed/blob/main/tests/test_cuda.py) from the [vembed Test Suite](https://github.com/kuro337/vembed/tree/main/tests) to check Nvidia System GPU availability
 
 ```bash
+# Nvidia CUDA and PyTorch Test
+python3 tests/test_cuda.py
+
+# Run all Tests
+python3 -m unittest discover -s tests -v
+```
+<br/>
+
+*Checking Virtual or System Environment Deps and Cache Size*
+
+```bash
+
 # Check Disk Allocation for Packages 
 du -h venv | sort -hr | head -n 10
 

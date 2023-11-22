@@ -1,4 +1,4 @@
-## Latest Test Results - 2023-11-22 02:40:43
+## Latest Test Results - 2023-11-22 03:36:19
 ### Automated Test Run Summary
 Results of the latest test run for *vembed*.
 
@@ -24,7 +24,7 @@ test_similarity_plot_creation (test_similarities.TestPlotting.test_similarity_pl
 test_calculate_similarities (test_similarities.TestSimilarity.test_calculate_similarities) ... ok
 
 ----------------------------------------------------------------------
-Ran 18 tests in 11.078s
+Ran 18 tests in 10.016s
 
 OK
 ```
