@@ -6,12 +6,17 @@
 <br/>
 
 
-Library to Generate and Serialize Vector Embeddings, extract Semantic Similarity, and create Visualizations from data.
+Library for Generating Vector Embeddings, performing Similarity searches, and creating Visualizations from Data.
+
 
 <br/>
+<br/>
+
 
 ```bash
-pip install vembed
+
+pip3 install vembed
+
 ```
 
 
@@ -22,7 +27,7 @@ pip install vembed
 ### Strings to Embeddings 
 <br/>
 
-- Convert a String to a Vector Embedding
+- **Convert** a **String** to a **Vector Embedding**.
 
 ```py
 from vembed import string_to_embedding
@@ -35,12 +40,12 @@ embedding = string_to_embedding(input_string)
 ```
 <br/>
 
-- Use Batching to Convert Several Strings to their `Vector Float` Representation *Efficiently*.
+- Use **Batching** to Convert Lists of Strings to their **Vector Float** Representations.
 
 ```py
 from vembed import lists_to_embeddings
 
-embeddings = lists_to_embeddings(["Convert to a List[Float]", "Another String","More Strings!"])
+embeddings = lists_to_embeddings(["Convert to a List[Float]", "Another String", "More Strings!"])
 
 # print(embeddings) [[0.123, 0.456, ...], [0.789, 0.012, ...]]
 ```
@@ -73,12 +78,16 @@ json_embedding = embeddings_to_json_format(embeddings)
 
 <hr/>
 
+<br/>
+
 ### Similarity 
 
 <br/>
 
 
 *Semantic Similarity Between Entities*
+
+<br/>
 
 Extract Insights such as Patterns or Relevancy from your Data.
 
@@ -137,7 +146,7 @@ Query: 'Facing issues after the update'
 
 <br/>
 
-- Generating Clean, Beautiful Visualizations from Results.
+- Generating *Clean*, *Beautiful* Visualizations from Data.
 
 <br/>
 
@@ -155,6 +164,8 @@ plot_similarities(cos_df, dot_df, save_path="heatmaps/customer_feedback_similari
 ```
 <hr/>
 
+<br/>
+
 ### Cosine and Dot Product Vector Similarity Measures
 
 ```bash
@@ -165,19 +176,23 @@ Zero     [ 0 ] - Orthogonal , No Commonality
 Positive [ + ] - Strong Similarity 
 ```
 
+<br/>
+
 #### Cosine Similarity 
+
 <br/>
 
   - Ranges between `-1` and `1`
 
   - Recommended when the Context and Similarity is important - and Frequency is not important (Magnitude)
 
+<br/>
 
 - Use Case for Cosine Similarity 
   
-  - Here, `Direction` - **thematic orienation** (*climate change, agriculture*) is relevant 
+  - In the following example, **Direction** *(thematic orienation)* - **climate change, agriculture** is relevant. 
 
-  - `Cosine Similarity` is useful here as we want to find the relevancy of documents discussing similar topics `(direction)` - irrespective of the length of frequency of specific words `(Magnitude)`
+  - **Cosine Similarity** is useful here as we want to find the relevancy of documents discussing similar topics *(direction)* - irrespective of the length of frequency of specific words *(Magnitude)*
 
 <br/>
 
@@ -218,7 +233,11 @@ cos_df, _ = calculate_similarities(queries, data, sorted=True, print_results=Tru
 ```py
 @Usage
 
-user_reading_profile = ["Read many articles on machine learning", "Occasionally reads about space exploration" ]
+user_reading_profile = [
+                        "Read many articles on machine learning", 
+                        "Occasionally reads about space exploration" 
+                       ]
+
 article_options      = [
                         "Latest trends in machine learning",
                         "Beginner's guide to space travel",
@@ -261,10 +280,10 @@ cos_df, dot_df = calculate_similarities(queries, data, sorted=True, print_result
 # Dot Product Similarities:
 # ...
 ```
+<br/>
 
 <hr/>
 
-<br/>
 
 ### Visualizations 
 
@@ -272,11 +291,11 @@ cos_df, dot_df = calculate_similarities(queries, data, sorted=True, print_result
 
 
 
-*Generate Visualizations from Embeddings such as HeatMap Distributions*
+***Generate Visualizations from Embeddings such as HeatMap Distributions***
 
 <br/>
 
-- Create a visualization to display the Simalirities using a Heatmap.
+- Create a **Visualization** to display the ***Entity Similarities*** using a **Heatmap**.
 
 <br/>
 
@@ -315,15 +334,31 @@ plot_similarities(None, dot_df, save_path="customer_feedback_similarity.png")
 # View customer_feedback_similarity.png to see the Heatmap
 ```
 
+<br/>
+
 <hr/>
-<hr/>
+
+
+### Test Suite
 
 <br/>
 
-
-### Tests
-
 [Latest](https://github.com/kuro337/vembed/tree/main/tests) Test Run
+
+<br/>
+
+- gRPC Tests
+- JSON Tests
+- Numpy Tests
+- Serialization Tests
+- Embedding Generation Tests
+- Batched Embedding Generation Tests
+- Custom Model Tests
+- Caching Tests
+- Transformer Metadata Tests
+- Module Resolution Tests 
+
+<br/>
 
 <hr/>
 
@@ -356,7 +391,7 @@ pip3 install ./vembed/dist/vembed-0.24-py3-none-any.whl
 ```
 <hr/>
 
-Dependencies
+#### Dependencies
 - `sentence_transformers`
 - `torch`
 - `transformers`
