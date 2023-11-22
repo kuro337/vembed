@@ -1,27 +1,57 @@
 # vembed
 
-![Alt text for the image](assets/vembed.jpg)
+<img src="assets/vecembed.jpg" alt="Alt text for the image" width="100%" height="auto" />
 
+<br/>
 
-Library to generate Embeddings and Extract Semantic Similarity from Data.
+Library to generate and serialize Vector Embeddings, extract Semantic Similarity, and create Visualizations.
 
 <hr/>
 
 #### String to Embeddings 
+<br/>
 
-- Convert Strings to Vector Embeddings
-
-
+- Convert a String to a Vector Embedding
 
 ```py
-@Usage
-
-from embedder import string_to_embedding
+from vembed import string_to_embedding
 
 input_string = "This is a test sentence."
 embedding = string_to_embedding(input_string)
 print(embedding)
 ```
+<br/>
+
+- Use Batching to Convert Several Strings to their `Vector Float` Representation *Efficiently*.
+
+```py
+from vembed import lists_to_embeddings
+
+embeddings = lists_to_embeddings(["Convert to a List[Float]", "Another String","More Strings!"])
+print(embeddings)  # Output: [[0.123, 0.456, ...], [0.789, 0.012, ...]]
+```
+<br/>
+
+#### Serialization
+
+Utilities to convert embeddings into Serializable Formats for Transferring Embeddings over Network Calls.
+
+- `Protobuf` Serializable Format to use with `gRPC` Services
+-  `JSON` Serialization for usage with `REST` API's
+
+
+```py
+from vembed import lists_to_embeddings, embeddings_to_proto_format, embeddings_to_json_format
+
+embeddings = lists_to_embeddings(["CSV,Row,1" , "CSV,Row,2"])
+
+# Convert to a Protobuf Serializable Format to send over a gRPC Service
+proto_embedding = embeddings_to_proto_format(embeddings)
+
+# Convert to a JSON String for usage with REST API's
+json_embedding = embeddings_to_json_format(embeddings)
+```
+
 <hr/>
 
 ### Similarity 
@@ -149,6 +179,24 @@ plot_similarities(None, dot_df, save_path="customer_feedback_similarity.png")
 # View customer_feedback_similarity.png to see the Heatmap
 ```
 
+<hr/>
+
+Build and Run Locally from Source
+
+```bash
+git clone git@github.com:kuro337/vembed.git
+
+# Create Isolated Virtual Env
+python3 -m venv venv
+source venv/bin/activate
+
+# Install Deps
+pip install -e .
+
+# Run Tests
+chmod +x RUN_TESTS.sh
+./RUN_TESTS.sh
+```
 <hr/>
 
 Dependencies

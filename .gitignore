@@ -1,3 +1,5 @@
 venv/*
 RUN.md
 dist
+**/__pycache__/
+

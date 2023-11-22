@@ -1,13 +1,8 @@
-# embedding_converter/converter.py
-
 from sentence_transformers import SentenceTransformer, util
 import torch
 import pandas as pd
 
 from ..model.transformer_model import get_model
-
-# # Initialize model
-# model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2")
 
 
 def calculate_similarities(

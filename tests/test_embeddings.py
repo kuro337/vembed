@@ -1,6 +1,12 @@
 import unittest
 import numpy as np
-from vembed import string_to_embedding, strings_to_embeddings
+from vembed import (
+    string_to_embedding,
+    lists_to_embeddings,
+    embeddings_to_proto_format,
+    embeddings_to_json_format,
+    json_to_embeddings,
+)
 
 
 class TestStringToEmbedding(unittest.TestCase):
@@ -40,18 +46,41 @@ class TestStringToEmbedding(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         string_to_embedding(input_string)
 
-    def test_list_strings_to_embeddings(self):
-        converted_embeddings = strings_to_embeddings(self.list_strings_to_convert)
-        # print(converted_embeddings)
+    def test_lists_to_embeddings(self):
+        converted_embeddings = lists_to_embeddings(self.list_strings_to_convert)
         self.assertIsNotNone(converted_embeddings)
         expected_number_of_embeddings = len(self.list_strings_to_convert)
 
-        # Check if the number of embeddings matches the number of input strings
         self.assertEqual(len(converted_embeddings), expected_number_of_embeddings)
 
-        # Check if each item in embeddings is a NumPy array
         for embedding in converted_embeddings:
             self.assertTrue(isinstance(embedding, np.ndarray))
+
+    def test_serialization_to_proto(self):
+        embeddings = lists_to_embeddings(self.list_strings_to_convert)
+        proto_format = embeddings_to_proto_format(embeddings)
+        self.assertIsInstance(proto_format, list)
+        self.assertIsNotNone(proto_format)
+        # print("Proto Serialized Embedding", proto_format)
+
+    def test_serialization_to_json(self):
+        embeddings = lists_to_embeddings(self.list_strings_to_convert)
+        json_format = embeddings_to_json_format(embeddings)
+        self.assertIsInstance(json_format, str)
+        self.assertIsNotNone(json_format)
+        # print("JSON Serialized Embedding", json_format)
+
+    def test_serialization_to_proto_and_json(self):
+        embeddings = lists_to_embeddings(self.list_strings_to_convert)
+        proto_format = embeddings_to_proto_format(embeddings)
+        json_format = embeddings_to_json_format(embeddings)
+
+        self.assertIsInstance(proto_format, list)
+        self.assertIsInstance(json_format, str)
+
+        # Deserialize and compare
+        deserialized_json = json_to_embeddings(json_format)
+        self.assertEqual(proto_format, deserialized_json)
 
 
 if __name__ == "__main__":
