@@ -1,6 +1,6 @@
-## Latest Test Results - 2023-11-22 01:59:30
+## Latest Test Results - 2023-11-22 02:40:43
 ### Automated Test Run Summary
-Below are the results of the latest test run for the *vembed* library.
+Results of the latest test run for *vembed*.
 
 #### Test Output
 ```
@@ -24,11 +24,11 @@ test_similarity_plot_creation (test_similarities.TestPlotting.test_similarity_pl
 test_calculate_similarities (test_similarities.TestSimilarity.test_calculate_similarities) ... ok
 
 ----------------------------------------------------------------------
-Ran 18 tests in 10.677s
+Ran 18 tests in 11.078s
 
 OK
 ```
 
 #### Notes
-- For detailed information on individual tests, refer to the [source files in the `tests` directory](/tree/main/tests).
+- For detailed information on individual tests, refer to the source files in the `tests` directory
 - All tests are designed to ensure the reliability of the *vembed* library.
